@@ -1,0 +1,9 @@
+{
+	"name": "relay-mesh",
+	"version": "0.0.0",
+	"author": "Ben Hutchison <ben@bluejeans.com>",
+	"private": true,
+	"dependencies": {
+		"restify": "3.0.3"
+	}
+}
