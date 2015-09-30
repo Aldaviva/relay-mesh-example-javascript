@@ -17,7 +17,7 @@ See the [Relay API docs](https://relay.bluejeans.com/docs/mesh.html) for more de
     npm install
     node . 
 
-The web server will compile and run, listening on port `6374`. Requests will be parsed and logged.
+The web server will run, listening on port `6374`. Requests will be parsed and logged.
 
 ## Start coding
 
