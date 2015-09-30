@@ -7,17 +7,35 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 /**
- * Call Active method
- * @see https://relay.bluejeans.com/docs/mesh.html#callactive
+ * Capabilities method
+ * @see https://relay.bluejeans.com/docs/mesh.html#capabilities
  */
-server.get('/:ipAddress/callactive', function(req, res, next){
-	console.info("Received callactive request", {
+server.get('/:ipAddress/capabilities', function(req, res, next){
+	console.info("Received capabilities request", {
 		ipAddress: req.params.ipAddress,
 		port: req.query.port,
 		name: req.query.name
 	});
 
-	res.send({ callActive: false });
+	res.send({
+		JOIN: true,
+		HANGUP: true,
+		STATUS: true,
+		MUTE_MICROPHONE: true
+	});
+});
+/**
+ * Status method
+ * @see https://relay.bluejeans.com/docs/mesh.html#status
+ */
+server.get('/:ipAddress/status', function(req, res, next){
+	console.info("Received status request", {
+		ipAddress: req.params.ipAddress,
+		port: req.query.port,
+		name: req.query.name
+	});
+
+	res.send({ callActive: false, microphoneMuted: false });
 });
 
 /**
@@ -32,6 +50,32 @@ server.post('/:ipAddress/join', function(req, res, next){
 		passcode      : req.query.passcode || null,
 		bridgeAddress : req.query.bridgeAddress || null,
 		endpoint      : req.body
+	});
+
+	res.send(204);
+});
+
+/**
+ * Mute Microphone method
+ * @see https://relay.bluejeans.com/docs/mesh.html#mutemicrophone
+ */
+server.post('/:ipAddress/mutemicrophone', function(req, res, next){
+	console.info("Received mutemicrophone request", {
+		ipAddress: req.params.ipAddress,
+		endpoint: req.body
+	});
+
+	res.send(204);
+});
+
+/**
+ * Unmute Microphone method
+ * @see https://relay.bluejeans.com/docs/mesh.html#mutemicrophone
+ */
+server.post('/:ipAddress/unmutemicrophone', function(req, res, next){
+	console.info("Received unmutemicrophone request", {
+		ipAddress: req.params.ipAddress,
+		endpoint: req.body
 	});
 
 	res.send(204);
